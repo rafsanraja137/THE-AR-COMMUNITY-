@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রেফারেল</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+        
+        body { font-family: 'Hind Siliguri', sans-serif; margin: 0; background-color: #f4f7f6; }
+        .header { background: linear-gradient(to right, #667eea, #764ba2); color: white; padding: 1rem 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header h1 { margin: 0; }
+        .nav { background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; justify-content: center; padding: 0.5rem 0; }
+        .nav a { padding: 14px 20px; text-decoration: none; color: #555; font-weight: 500; transition: color 0.3s, border-bottom 0.3s; border-bottom: 3px solid transparent; }
+        .nav a.active, .nav a:hover { color: #667eea; border-bottom: 3px solid #667eea; }
+        .container { display: flex; justify-content: center; align-items: center; padding: 2rem; }
+        .referral-container { background-color: #fff; padding: 2.5rem; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 600px; }
+        .referral-container h2 { margin-top: 0; font-size: 2rem; color: #667eea; }
+        .referral-container p { color: #555; margin-bottom: 2rem; }
+        .referral-link-box { display: flex; margin-bottom: 1.5rem; }
+        #referral-link { flex-grow: 1; padding: 0.8rem; border: 2px dashed #ccc; border-right: none; border-radius: 8px 0 0 8px; font-size: 1rem; background-color: #f8f9fa; }
+        #referral-link:focus { outline: none; }
+        #copy-btn { padding: 0.8rem 1.5rem; border: none; background-color: #667eea; color: white; font-size: 1rem; cursor: pointer; border-radius: 0 8px 8px 0; transition: background-color 0.3s; }
+        #copy-btn:hover { background-color: #5a6ed8; }
+    </style>
+</head>
+<body>
+
+    <header class="header"><h1>আপনার রেফারেল লিঙ্ক</h1></header>
+
+    <nav class="nav">
+        <a href="Home.html">হোম</a>
+        <a href="Task.html">টাস্ক</a>
+        <a href="referral.html" class="active">রেফারেল</a>
+    </nav>
+
+    <div class="container">
+        <div class="referral-container">
+            <h2>বন্ধুদের আমন্ত্রণ জানান</h2>
+            <p>আপনার রেফারেল লিঙ্কটি বন্ধুদের সাথে শেয়ার করুন এবং প্রতি সফল রেফারেলের জন্য বোনাস পান।</p>
+            <div class="referral-link-box">
+                <input type="text" value="https://yourwebsite.com/register?ref=user123" id="referral-link" readonly>
+                <button id="copy-btn">কপি করুন</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            const referralLinkInput = document.getElementById('referral-link');
+            navigator.clipboard.writeText(referralLinkInput.value).then(() => {
+                const copyButton = document.getElementById('copy-btn');
+                copyButton.textContent = 'কপি হয়েছে!';
+                setTimeout(() => {
+                    copyButton.textContent = 'কপি করুন';
+                }, 2000);
+            }).catch(err => {
+                alert('দুঃখিত, লিঙ্ক কপি করা যায়নি।');
+            });
+        });
+    </script>
+
+</body>
+</html>

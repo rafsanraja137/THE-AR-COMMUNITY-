@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>হোম</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            margin: 0;
+            background-color: #f4f7f6;
+        }
+        .header {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .nav {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
+        }
+        .nav a {
+            padding: 14px 20px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s, border-bottom 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .nav a.active, .nav a:hover {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+        .container {
+            padding: 2rem;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #764ba2;
+        }
+        .card p {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+            color: #333;
+        }
+        .main-action {
+            margin-top: 2rem;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .main-action h2 {
+            margin-top: 0;
+        }
+        .btn-primary {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>ড্যাশবোর্ড</h1>
+        <a href="index.html" style="color:white; text-decoration:none;">লগআউট</a>
+    </header>
+
+    <nav class="nav">
+        <a href="Home.html" class="active">হোম</a>
+        <a href="Task.html">টাস্ক</a>
+        <a href="referral.html">রেফারেল</a>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>মোট আয়</h3>
+                <p>৳ 1,250</p>
+            </div>
+            <div class="card">
+                <h3>আজকের টাস্ক</h3>
+                <p>5 / 20</p>
+            </div>
+            <div class="card">
+                <h3>মোট রেফারেল</h3>
+                <p>15</p>
+            </div>
+        </div>
+
+        <div class="main-action">
+            <h2>আজকের কাজ শুরু করুন</h2>
+            <p>আপনার বাকি থাকা টাস্কগুলো সম্পন্ন করে আয় করুন।</p>
+            <a href="Task.html" class="btn-primary">টাস্ক পেজে যান</a>
+        </div>
+    </div>
+
+</body>
+</html>

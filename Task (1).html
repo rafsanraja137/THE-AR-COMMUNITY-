@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>টাস্ক</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+        
+        body { 
+            font-family: 'Hind Siliguri', sans-serif; 
+            margin: 0; 
+            background-color: #f4f7f6; 
+        }
+        .header { 
+            background: linear-gradient(to right, #667eea, #764ba2); 
+            color: white; 
+            padding: 1rem 2rem; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+        }
+        .header h1 { margin: 0; }
+        .nav { 
+            background-color: #fff; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+            display: flex; 
+            justify-content: center; 
+            padding: 0.5rem 0; 
+        }
+        .nav a { 
+            padding: 14px 20px; 
+            text-decoration: none; 
+            color: #555; 
+            font-weight: 500; 
+            transition: color 0.3s, border-bottom 0.3s; 
+            border-bottom: 3px solid transparent; 
+        }
+        .nav a.active, .nav a:hover { 
+            color: #667eea; 
+            border-bottom: 3px solid #667eea; 
+        }
+        .container { padding: 2rem; }
+        .task-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 1.5rem; 
+        }
+        .task-card { 
+            background-color: #fff; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+        }
+        .task-header { 
+            padding: 1rem; 
+            background-color: #f8f9fa; 
+            border-bottom: 1px solid #eee; 
+            font-weight: 600; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .completion-count {
+            background-color: #667eea;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+        .task-body { 
+            padding: 1.5rem; 
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .timer-display {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .task-btn { 
+            width: 100%; 
+            padding: 0.8rem; 
+            border: none; 
+            border-radius: 8px; 
+            color: white; 
+            font-size: 1rem; 
+            cursor: pointer; 
+            transition: background-color 0.3s, transform 0.2s; 
+        }
+        .task-btn.start { background-color: #28a745; }
+        .task-btn.start:hover { background-color: #218838; transform: scale(1.02); }
+        .task-btn:disabled { 
+            background-color: #6c757d; 
+            cursor: not-allowed; 
+        }
+        
+        .upload-section { margin-top: 1rem; display: none; }
+        .upload-section label { font-size: 0.9rem; display: block; margin-bottom: 0.5rem; }
+        .upload-section input[type="file"] { width: 100%; margin-bottom: 0.8rem; }
+        .upload-section button { 
+            width: 100%; 
+            padding: 0.7rem; 
+            border: none; 
+            border-radius: 6px; 
+            background-color: #007bff; 
+            color: white; 
+            cursor: pointer; 
+        }
+        .screenshot-preview {
+            max-width: 100%;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+        .verification-check {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .verification-check input {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header"><h1>আপনার টাস্কসমূহ</h1></header>
+
+    <nav class="nav">
+        <a href="Home.html">হোম</a>
+        <a href="Task.html" class="active">টাস্ক</a>
+        <a href="referral.html">রেফারেল</a>
+    </nav>
+
+    <div class="container">
+        <div class="task-grid" id="task-grid">
+            <!-- টাস্ক কার্ডগুলো এখানে জাভাস্ক্রিপ্ট দিয়ে তৈরি হবে -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const taskGrid = document.getElementById('task-grid');
+            const totalTasks = 20;
+
+            const taskLinks = [
+                "https://www.effectivegatecpm.com/ejx78rjfb?key=e04a2cd4bf9282e7fbf38a328d30b443",
+                "https://www.effectivegatecpm.com/t297xcde?key=f08e309d7837d817114e9639be858de6",
+                "https://www.effectivegatecpm.com/ueifzagv?key=78504f2ef587dc62a1c57a1c0a297ee1",
+                "https://www.effectivegatecpm.com/swn4g2b7?key=8264e5117cb47112db6205bf95e17c10",
+                "https://www.effectivegatecpm.com/ai14mzbu?key=c4859f9f2cf2f9323ef91540f8d1d13f",
+                "https://www.effectivegatecpm.com/jixcd0a6e7?key=d344717774df3014edb480d0e9f52301",
+                "https://www.effectivegatecpm.com/y891sajhu?key=cc01fb8f4569ce51c3d3a1749f8a2c53",
+                "https://www.effectivegatecpm.com/yfxs9bg5f?key=d07c2ce8a407eb3dab6217186997d412",
+                "https://www.effectivegatecpm.com/eskngcg4jq?key=25148d6d9f93f4c142cd722fefd268da",
+                "https://www.effectivegatecpm.com/mvai782tf?key=d3a305e3c89ae80b7494a1678254c4c4",
+                "https://www.effectivegatecpm.com/jrae0fazt2?key=98ffa6c928e119599cdb74aa656748c1",
+                "https://www.effectivegatecpm.com/yrm78r75t?key=6197e78f9c611db04d2f95f964ef84f9",
+                "https://www.effectivegatecpm.com/m135j7v6s3?key=5577f1f410ae24c7c73c47b11d34df92",
+                "https://www.effectivegatecpm.com/mirt82p7?key=844c03afc2015717306bd609b50abfd9",
+                "https://www.effectivegatecpm.com/mytx9rcq0?key=564d67635834d30924d9af025bc6437b",
+                "https://www.effectivegatecpm.com/e230pz9r?key=2ae34f4adbe8932002197369382129a8",
+                "https://www.effectivegatecpm.com/qnhmd4jq?key=05db6b710f0deb35f9ce50bef18cf588",
+                "https://www.effectivegatecpm.com/evv54t6ukv?key=0cb4df95a370072760c52ff23de79d75",
+                "https://www.effectivegatecpm.com/d68hyhmf6?key=85de7a4dd39a38de27bb4003a1a249e9",
+                "https://www.effectivegatecpm.com/bip5rudean?key=e012adfadade80014a4b5ff08ac27e6d"
+            ];
+
+            let taskData = JSON.parse(localStorage.getItem('taskData')) || {};
+
+            const saveTaskData = () => {
+                localStorage.setItem('taskData', JSON.stringify(taskData));
+            };
+
+            const formatTime = (ms) => {
+                let seconds = Math.floor(ms / 1000);
+                let minutes = Math.floor(seconds / 60);
+                let hours = Math.floor(minutes / 60);
+                seconds %= 60;
+                minutes %= 60;
+                return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            };
+            
+            const updateTaskCard = (taskId) => {
+                const card = document.querySelector(`[data-card-id='${taskId}']`);
+                if (!card) return;
+
+                const task = taskData[taskId] || { count: 0, cooldownEnd: null };
+                const now = new Date().getTime();
+
+                const header = card.querySelector('.task-header');
+                const countSpan = header.querySelector('.completion-count');
+                countSpan.textContent = `সম্পন্ন: ${task.count || 0}`;
+
+                const body = card.querySelector('.task-body');
+                let timerInterval = window.taskTimers[taskId];
+                if(timerInterval) clearInterval(timerInterval);
+
+                if (task.cooldownEnd && task.cooldownEnd > now) {
+                    const remainingTime = task.cooldownEnd - now;
+                    body.innerHTML = `<div class="timer-display">${formatTime(remainingTime)}</div><button class="task-btn" disabled>অপেক্ষা করুন</button>`;
+
+                    window.taskTimers[taskId] = setInterval(() => {
+                        const newRemaining = task.cooldownEnd - new Date().getTime();
+                        if (newRemaining <= 0) {
+                            clearInterval(window.taskTimers[taskId]);
+                            updateTaskCard(taskId);
+                        } else {
+                            body.querySelector('.timer-display').textContent = formatTime(newRemaining);
+                        }
+                    }, 1000);
+                } else {
+                    const taskIndex = parseInt(taskId.split('-')[1]) - 1;
+                    const taskLink = taskLinks[taskIndex];
+                    body.innerHTML = `
+                        <button class="task-btn start" data-link="${taskLink}">শুরু করুন</button>
+                        <div class="upload-section">
+                            <label for="file-${taskId}">স্ক্রিনশট আপলোড করুন:</label>
+                            <input type="file" id="file-${taskId}" class="file-input" accept="image/*">
+                            <img class="screenshot-preview" id="preview-${taskId}" src="#" alt="Screenshot Preview"/>
+                            <div class="verification-check">
+                                <input type="checkbox" id="verify-${taskId}" class="verify-checkbox">
+                                <label for="verify-${taskId}">আমি নিশ্চিত করছি যে এটি বিজ্ঞাপনের সঠিক স্ক্রিনশট।</label>
+                            </div>
+                            <button class="submit-btn">জমা দিন</button>
+                        </div>`;
+                }
+            };
+
+            window.taskTimers = {};
+            for (let i = 1; i <= totalTasks; i++) {
+                const taskId = `task-${i}`;
+                if (!taskData[taskId]) {
+                    taskData[taskId] = { count: 0, cooldownEnd: null };
+                }
+
+                const taskCard = document.createElement('div');
+                taskCard.className = 'task-card';
+                taskCard.dataset.cardId = taskId;
+
+                taskCard.innerHTML = `
+                    <div class="task-header">
+                        <span>টাস্ক ${i}</span>
+                        <span class="completion-count"></span>
+                    </div>
+                    <div class="task-body"></div>
+                `;
+                taskGrid.appendChild(taskCard);
+                updateTaskCard(taskId);
+            }
+            saveTaskData();
+
+            taskGrid.addEventListener('click', function(e) {
+                const card = e.target.closest('.task-card');
+                if (!card) return;
+                const taskId = card.dataset.cardId;
+
+                if (e.target.classList.contains('start')) {
+                    window.open(e.target.dataset.link, '_blank');
+                    card.querySelector('.upload-section').style.display = 'block';
+                    e.target.style.display = 'none'; // শুরু করুন বাটনটি লুকিয়ে দিন
+                }
+
+                if (e.target.classList.contains('submit-btn')) {
+                    const fileInput = card.querySelector('.file-input');
+                    const verificationCheckbox = card.querySelector('.verify-checkbox');
+
+                    if (fileInput.files.length === 0) {
+                        alert('দয়া করে একটি স্ক্রিনশট ফাইল নির্বাচন করুন।');
+                        return;
+                    }
+                    
+                    if (!verificationCheckbox.checked) {
+                        alert('দয়া করে নিশ্চিত করুন যে এটি বিজ্ঞাপনের সঠিক স্ক্রিনশট।');
+                        return;
+                    }
+
+                    const now = new Date().getTime();
+                    const twentyFourHours = 24 * 60 * 60 * 1000;
+                    
+                    taskData[taskId].cooldownEnd = now + twentyFourHours;
+                    taskData[taskId].count = (taskData[taskId].count || 0) + 1;
+                    
+                    saveTaskData();
+                    updateTaskCard(taskId);
+                }
+            });
+
+            // Preview functionality for file inputs
+            taskGrid.addEventListener('change', function(e){
+                if(e.target.classList.contains('file-input')) {
+                    const card = e.target.closest('.task-card');
+                    const taskId = card.dataset.cardId;
+                    const preview = document.getElementById(`preview-${taskId}`);
+                    const file = e.target.files[0];
+                    const reader = new FileReader();
+
+                    reader.onloadend = function () {
+                        preview.src = reader.result;
+                        preview.style.display = 'block';
+                    }
+
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    } else {
+                        preview.src = "";
+                        preview.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
