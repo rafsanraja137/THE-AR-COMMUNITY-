@@ -111,15 +111,15 @@
         <div class="dashboard-grid">
             <div class="card">
                 <h3>মোট আয়</h3>
-                <p>৳ 1,250</p>
+                <p id="total-income">৳ 0</p>
             </div>
             <div class="card">
                 <h3>আজকের টাস্ক</h3>
-                <p>5 / 20</p>
+                <p id="todays-tasks-count">0 / 20</p>
             </div>
             <div class="card">
                 <h3>মোট রেফারেল</h3>
-                <p>15</p>
+                <p>15</p> 
             </div>
         </div>
 
@@ -130,5 +130,44 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // লোকাল স্টোরেজ থেকে টাস্কের ডেটা লোড করা হচ্ছে
+            const taskData = JSON.parse(localStorage.getItem('taskData')) || {};
+            const totalTasks = 20;
+            const earningPerTask = 10; // প্রতিটি টাস্কের জন্য আয় (আপনি এটি পরিবর্তন করতে পারেন)
+
+            // আজকের সম্পন্ন হওয়া টাস্ক গণনা
+            let completedToday = 0;
+            const now = new Date().getTime();
+            for (const taskId in taskData) {
+                const task = taskData[taskId];
+                // যদি টাস্কের কুলডাউন সময় এখনো শেষ না হয়, তার মানে এটি আজ সম্পন্ন হয়েছে
+                if (task.cooldownEnd && task.cooldownEnd > now) {
+                    completedToday++;
+                }
+            }
+            
+            // মোট আয় গণনা
+            let totalCompletions = 0;
+            for (const taskId in taskData) {
+                totalCompletions += (taskData[taskId].count || 0);
+            }
+            const totalIncome = totalCompletions * earningPerTask;
+
+            // HTML এলিমেন্টগুলো আপডেট করা
+            const todaysTasksElement = document.getElementById('todays-tasks-count');
+            const totalIncomeElement = document.getElementById('total-income');
+
+            if (todaysTasksElement) {
+                todaysTasksElement.textContent = `${completedToday} / ${totalTasks}`;
+            }
+
+            if (totalIncomeElement) {
+                totalIncomeElement.textContent = `৳ ${totalIncome.toLocaleString('bn-BD')}`;
+            }
+        });
+    </script>
+
 </body>
-</html>
+</html>```
