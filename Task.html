@@ -98,33 +98,6 @@
             background-color: #6c757d; 
             cursor: not-allowed; 
         }
-        
-        .upload-section { margin-top: 1rem; display: none; }
-        .upload-section label { font-size: 0.9rem; display: block; margin-bottom: 0.5rem; }
-        .upload-section input[type="file"] { width: 100%; margin-bottom: 0.8rem; }
-        .upload-section button { 
-            width: 100%; 
-            padding: 0.7rem; 
-            border: none; 
-            border-radius: 6px; 
-            background-color: #007bff; 
-            color: white; 
-            cursor: pointer; 
-        }
-        .screenshot-preview {
-            max-width: 100%;
-            margin-top: 10px;
-            border: 1px solid #ddd;
-            display: none;
-        }
-        .verification-check {
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .verification-check input {
-            margin-right: 8px;
-        }
     </style>
 </head>
 <body>
@@ -217,18 +190,7 @@
                 } else {
                     const taskIndex = parseInt(taskId.split('-')[1]) - 1;
                     const taskLink = taskLinks[taskIndex];
-                    body.innerHTML = `
-                        <button class="task-btn start" data-link="${taskLink}">শুরু করুন</button>
-                        <div class="upload-section">
-                            <label for="file-${taskId}">স্ক্রিনশট আপলোড করুন:</label>
-                            <input type="file" id="file-${taskId}" class="file-input" accept="image/*">
-                            <img class="screenshot-preview" id="preview-${taskId}" src="#" alt="Screenshot Preview"/>
-                            <div class="verification-check">
-                                <input type="checkbox" id="verify-${taskId}" class="verify-checkbox">
-                                <label for="verify-${taskId}">আমি নিশ্চিত করছি যে এটি বিজ্ঞাপনের সঠিক স্ক্রিনশট।</label>
-                            </div>
-                            <button class="submit-btn">জমা দিন</button>
-                        </div>`;
+                    body.innerHTML = `<button class="task-btn start" data-link="${taskLink}">শুরু করুন</button>`;
                 }
             };
 
@@ -260,26 +222,12 @@
                 if (!card) return;
                 const taskId = card.dataset.cardId;
 
+                // 'শুরু করুন' বাটনে ক্লিক করা হলে
                 if (e.target.classList.contains('start')) {
+                    // লিঙ্কটি নতুন ট্যাবে খুলবে
                     window.open(e.target.dataset.link, '_blank');
-                    card.querySelector('.upload-section').style.display = 'block';
-                    e.target.style.display = 'none'; // শুরু করুন বাটনটি লুকিয়ে দিন
-                }
 
-                if (e.target.classList.contains('submit-btn')) {
-                    const fileInput = card.querySelector('.file-input');
-                    const verificationCheckbox = card.querySelector('.verify-checkbox');
-
-                    if (fileInput.files.length === 0) {
-                        alert('দয়া করে একটি স্ক্রিনশট ফাইল নির্বাচন করুন।');
-                        return;
-                    }
-                    
-                    if (!verificationCheckbox.checked) {
-                        alert('দয়া করে নিশ্চিত করুন যে এটি বিজ্ঞাপনের সঠিক স্ক্রিনশট।');
-                        return;
-                    }
-
+                    // সাথে সাথে টাস্কের জন্য টাইমার শুরু হবে
                     const now = new Date().getTime();
                     const twentyFourHours = 24 * 60 * 60 * 1000;
                     
@@ -290,31 +238,8 @@
                     updateTaskCard(taskId);
                 }
             });
-
-            // Preview functionality for file inputs
-            taskGrid.addEventListener('change', function(e){
-                if(e.target.classList.contains('file-input')) {
-                    const card = e.target.closest('.task-card');
-                    const taskId = card.dataset.cardId;
-                    const preview = document.getElementById(`preview-${taskId}`);
-                    const file = e.target.files[0];
-                    const reader = new FileReader();
-
-                    reader.onloadend = function () {
-                        preview.src = reader.result;
-                        preview.style.display = 'block';
-                    }
-
-                    if (file) {
-                        reader.readAsDataURL(file);
-                    } else {
-                        preview.src = "";
-                        preview.style.display = 'none';
-                    }
-                }
-            });
         });
     </script>
 
 </body>
-</html>
+    </html>
